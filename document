@@ -1,0 +1,182 @@
+Sure! Here's how you can create a detailed document including the code and outputs for each solution. To enhance your document with images (like screenshots of output), I’ll describe the steps to generate the outputs and take screenshots. You can then add the images to the document.
+
+---
+
+## **Document Structure with Code, Outputs, and Screenshots**
+
+### **1. Weather Data Aggregation (Handling Missing Data)**
+
+#### **Code**:
+```python
+def aggregate_weather_data(records):
+    # Initialize an empty dictionary to store weather data per city
+    city_weather = {}
+
+    # Loop through each record in the dataset
+    for record in records:
+        city = record['city']  # Extract city name
+        
+        if city not in city_weather:
+            # Initialize totals and counts if city is not already in the dictionary
+            city_weather[city] = {
+                'temperature_total': 0,
+                'temperature_count': 0,
+                'humidity_total': 0,
+                'humidity_count': 0
+            }
+        
+        # Check if the 'temperature' key exists in the record and update
+        if 'temperature' in record:
+            city_weather[city]['temperature_total'] += record['temperature']
+            city_weather[city]['temperature_count'] += 1
+        
+        # Check if the 'humidity' key exists in the record and update
+        if 'humidity' in record:
+            city_weather[city]['humidity_total'] += record['humidity']
+            city_weather[city]['humidity_count'] += 1
+
+    # Prepare final aggregated data
+    aggregated_data = {}
+
+    # Loop through each city and calculate averages
+    for city in city_weather:
+        temperature_count = city_weather[city]['temperature_count']
+        humidity_count = city_weather[city]['humidity_count']
+
+        # Calculate average temperature and humidity for each city
+        avg_temperature = city_weather[city]['temperature_total'] / temperature_count if temperature_count > 0 else None
+        avg_humidity = city_weather[city]['humidity_total'] / humidity_count if humidity_count > 0 else None
+
+        # Store the results
+        aggregated_data[city] = {
+            'average_temperature': avg_temperature,
+            'average_humidity': avg_humidity
+        }
+
+    return aggregated_data
+
+# Example usage
+records = [
+    {'city': 'New York', 'temperature': 22, 'humidity': 60},
+    {'city': 'Los Angeles', 'temperature': 28},
+    {'city': 'New York', 'humidity': 65},
+    {'city': 'Los Angeles', 'temperature': 30, 'humidity': 40},
+    {'city': 'Chicago', 'temperature': 15, 'humidity': 55}
+]
+
+result = aggregate_weather_data(records)
+print(result)
+```
+
+#### **Output**:
+```bash
+{
+    'New York': {'average_temperature': 22.0, 'average_humidity': 62.5},
+    'Los Angeles': {'average_temperature': 29.0, 'average_humidity': 40.0},
+    'Chicago': {'average_temperature': 15.0, 'average_humidity': 55.0}
+}
+```
+
+#### **Screenshot of Output**:
+1. Run the Python code in your local environment.
+2. Once you get the output in the terminal, take a screenshot of the result.
+3. Insert the screenshot into your document for visual reference.
+
+---
+
+### **2. Prime Factorization**
+
+#### **Code**:
+```python
+def prime_factorization(n):
+    # Create an empty dictionary to hold factors and their exponents
+    factors = {}
+    
+    # Start checking from 2 (smallest prime number)
+    divisor = 2
+
+    # Loop until n becomes 1
+    while n > 1:
+        # If the current divisor divides n completely
+        if n % divisor == 0:
+            if divisor in factors:
+                factors[divisor] += 1  # Increment exponent if divisor already exists
+            else:
+                factors[divisor] = 1  # Start exponent at 1 for a new divisor
+            n = n // divisor  # Update n
+        else:
+            divisor += 1  # Move to the next possible divisor
+
+    # Convert dictionary to a list of tuples
+    factor_list = []
+    for factor in factors:
+        factor_list.append((factor, factors[factor]))
+
+    return factor_list
+
+# Example usage
+result = prime_factorization(60)
+print(result)
+```
+
+#### **Output**:
+```bash
+[(2, 2), (3, 1), (5, 1)]
+```
+
+#### **Screenshot of Output**:
+1. Run the prime factorization function in your Python environment.
+2. Take a screenshot of the terminal showing the input (`60`) and the output (`[(2, 2), (3, 1), (5, 1)]`).
+3. Include the screenshot in the document.
+
+---
+
+### **3. SQL Query for Increasing Product Prices**
+
+#### **SQL Query**:
+```sql
+SELECT
+    name,
+    price * 1.10 AS new_price
+FROM
+    products;
+```
+
+#### **Explanation**:
+- This query selects the name of each product from the `products` table and increases the price of each product by 10%, assigning the result to a new column `new_price`.
+- The result will display the product name and the updated price.
+
+#### **Sample Output**:
+```text
+| name       | new_price |
+|------------|-----------|
+| Product A  | 11.00     |
+| Product B  | 22.00     |
+| Product C  | 33.00     |
+```
+
+#### **Screenshot of SQL Execution**:
+1. Run this query in a SQL database where you have a `products` table.
+2. Take a screenshot of the output after running the query.
+3. Insert the screenshot into your document to showcase the result.
+
+---
+
+### **Conclusion of the Document**
+
+Once you have the code, outputs, and screenshots ready, format them in a Word or PDF document as follows:
+1. **Title**: Data Manipulation Solutions
+2. **Introduction**: Briefly describe the purpose of the document and what problems are being solved.
+3. **Section for Each Problem**:
+    - Add the **code**.
+    - Show the **output**.
+    - Include the **screenshot** for reference.
+
+---
+
+### **How to Take and Add Screenshots**:
+- **Windows**: Use `Snipping Tool` or `PrtSc` to capture screenshots.
+- **Mac**: Use `Command + Shift + 4` to capture screenshots.
+- Save the screenshot as an image and insert it into the document under each relevant section.
+
+By following these steps, you will have a comprehensive document that includes both the code and visual confirmation of the outputs for each solution.
