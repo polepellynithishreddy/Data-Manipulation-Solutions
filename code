@@ -1,1 +1,125 @@
+### 1. **Aggregate Weather Data (Handling Missing Data)**
 
+Here's the solution to aggregate weather data without using predefined functions or libraries:
+
+```python
+def aggregate_weather_data(records):
+    # Initialize an empty dictionary to store weather data per city
+    city_weather = {}
+
+    # Loop through each record in the dataset
+    for record in records:
+        city = record['city']  # Extract city name
+        
+        if city not in city_weather:
+            # Initialize totals and counts if city is not already in the dictionary
+            city_weather[city] = {
+                'temperature_total': 0,
+                'temperature_count': 0,
+                'humidity_total': 0,
+                'humidity_count': 0
+            }
+        
+        # Check if the 'temperature' key exists in the record and update
+        if 'temperature' in record:
+            city_weather[city]['temperature_total'] += record['temperature']
+            city_weather[city]['temperature_count'] += 1
+        
+        # Check if the 'humidity' key exists in the record and update
+        if 'humidity' in record:
+            city_weather[city]['humidity_total'] += record['humidity']
+            city_weather[city]['humidity_count'] += 1
+
+    # Prepare final aggregated data
+    aggregated_data = {}
+
+    # Loop through each city and calculate averages
+    for city in city_weather:
+        temperature_count = city_weather[city]['temperature_count']
+        humidity_count = city_weather[city]['humidity_count']
+
+        # Calculate average temperature and humidity for each city
+        avg_temperature = city_weather[city]['temperature_total'] / temperature_count if temperature_count > 0 else None
+        avg_humidity = city_weather[city]['humidity_total'] / humidity_count if humidity_count > 0 else None
+
+        # Store the results
+        aggregated_data[city] = {
+            'average_temperature': avg_temperature,
+            'average_humidity': avg_humidity
+        }
+
+    return aggregated_data
+
+# Example usage
+records = [
+    {'city': 'New York', 'temperature': 22, 'humidity': 60},
+    {'city': 'Los Angeles', 'temperature': 28},
+    {'city': 'New York', 'humidity': 65},
+    {'city': 'Los Angeles', 'temperature': 30, 'humidity': 40},
+    {'city': 'Chicago', 'temperature': 15, 'humidity': 55}
+]
+
+result = aggregate_weather_data(records)
+print(result)
+```
+
+---
+
+### 2. **Prime Factorization**
+
+Here's a solution for prime factorization of a number, avoiding predefined libraries or advanced functions:
+
+```python
+def prime_factorization(n):
+    # Create an empty dictionary to hold factors and their exponents
+    factors = {}
+    
+    # Start checking from 2 (smallest prime number)
+    divisor = 2
+
+    # Loop until n becomes 1
+    while n > 1:
+        # If the current divisor divides n completely
+        if n % divisor == 0:
+            if divisor in factors:
+                factors[divisor] += 1  # Increment exponent if divisor already exists
+            else:
+                factors[divisor] = 1  # Start exponent at 1 for a new divisor
+            n = n // divisor  # Update n
+        else:
+            divisor += 1  # Move to the next possible divisor
+
+    # Convert dictionary to a list of tuples
+    factor_list = []
+    for factor in factors:
+        factor_list.append((factor, factors[factor]))
+
+    return factor_list
+
+# Example usage
+result = prime_factorization(60)
+print(result)
+```
+
+---
+
+### 3. **SQL Query for Increasing Product Prices**
+
+The clean SQL query for increasing the prices of all products by 10%:
+
+```sql
+SELECT
+    name,
+    price * 1.10 AS new_price
+FROM
+    products;
+```
+
+This query does not modify the original data in the `products` table; it simply computes the new prices dynamically during the query execution.
+
+---
+
+### Conclusion:
+- **Weather Data Aggregation**: We manually handled missing data and avoided predefined functions for dictionary manipulations.
+- **Prime Factorization**: We used a loop-based approach, dividing the number step-by-step to extract prime factors.
+- **SQL Query**: The price increment calculation was done inline using basic arithmetic.
